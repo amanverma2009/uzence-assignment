@@ -22,10 +22,11 @@ export interface InputFieldProps {
   name?: string;
 }
 
-const variantClasses: Record<Variant, string> = {
-  filled: "bg-gray-100 dark:bg-slate-800 border border-transparent",
-  outlined: "bg-white dark:bg-slate-900 border",
-  ghost: "bg-transparent border-transparent",
+const variantClasses = {
+  outlined: "border-gray-300 focus:border-blue-500",
+  filled:
+    "bg-gray-100 dark:bg-slate-700 border-transparent focus:ring-blue-400",
+  ghost: "bg-transparent border-transparent focus:ring-blue-400",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -57,9 +58,14 @@ export default function InputField({
   const [internalType, setInternalType] = useState(type);
   const showClear = clearable && !!value && !disabled;
 
-  const base = `w-full rounded-md focus:outline-none focus:ring-2 focus:ring-offset-0
-    ${invalid ? "ring-rose-500 border-rose-500" : "focus:ring-blue-400"}
-    ${disabled ? "opacity-60 cursor-not-allowed" : ""}`;
+  const base = `
+  w-full rounded-lg border
+  focus:outline-none focus:ring-2 focus:ring-offset-0
+  transition-all duration-200
+  placeholder:text-gray-400
+  bg-gray-50 dark:bg-slate-800
+  text-gray-900 dark:text-gray-100
+`;
 
   return (
     <div className="w-full">
@@ -79,33 +85,54 @@ export default function InputField({
           onChange={onChange}
           disabled={disabled}
           aria-invalid={invalid}
-          aria-describedby={errorMessage ? `${inputId}-error` : helperText ? `${inputId}-help` : undefined}
+          aria-describedby={
+            errorMessage
+              ? `${inputId}-error`
+              : helperText
+              ? `${inputId}-help`
+              : undefined
+          }
           type={internalType}
         />
 
-        {/* clear button */}
         {showClear && (
           <button
             type="button"
             aria-label="Clear input"
             onClick={() => {
-              const ev = { target: { value: "" } } as unknown as React.ChangeEvent<HTMLInputElement>;
+              const ev = {
+                target: { value: "" },
+              } as unknown as React.ChangeEvent<HTMLInputElement>;
               onChange?.(ev);
             }}
             className="absolute right-10 top-1/2 -translate-y-1/2 p-1"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M6 6 L18 18 M6 18 L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden
+            >
+              <path
+                d="M6 6 L18 18 M6 18 L18 6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </button>
         )}
 
-        {/* password toggle */}
         {showPasswordToggle && type === "password" && (
           <button
             type="button"
             aria-label="Toggle password visibility"
-            onClick={() => setInternalType(prev => (prev === "password" ? "text" : "password"))}
+            onClick={() =>
+              setInternalType((prev) =>
+                prev === "password" ? "text" : "password"
+              )
+            }
             className="absolute right-10 top-1/2 -translate-y-1/2 p-1"
           >
             {internalType === "password" ? (
@@ -116,18 +143,30 @@ export default function InputField({
           </button>
         )}
 
-        {/* loading spinner */}
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
             <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-              <path className="opacity-75" d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="4" fill="none" />
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+                fill="none"
+              />
+              <path
+                className="opacity-75"
+                d="M4 12a8 8 0 018-8"
+                stroke="currentColor"
+                strokeWidth="4"
+                fill="none"
+              />
             </svg>
           </div>
         )}
       </div>
 
-      {/* helper / error */}
       {errorMessage ? (
         <p id={`${inputId}-error`} className="mt-1 text-sm text-rose-600">
           {errorMessage}

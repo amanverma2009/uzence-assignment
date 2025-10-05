@@ -26,7 +26,7 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 space-y-8">
+    <div className="min-h-screen bg-gray-100 p-6 space-y-8 flex flex-col items-center">
       <h1 className="text-2xl font-bold">Uzence Front-End Assignment</h1>
 
       <div className="max-w-md">
@@ -35,7 +35,7 @@ function App() {
           placeholder="Type a name..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          helperText="Try typing 'Aman' or 'Zed'"
+          helperText="Try typing 'Rahul' or 'Zed'"
           clearable
         />
       </div>
@@ -48,7 +48,7 @@ function App() {
         onRowSelect={(rows) => setSelected(rows)}
       />
 
-      <div className="text-gray-700">
+      <div className="text-green-700">
         <strong>Selected Rows:</strong>{" "}
         {selected.map((s) => s.name).join(", ") || "None"}
       </div>
