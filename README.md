@@ -8,6 +8,27 @@ React + TypeScript + Tailwind CSS + Storybook
 
 ![Screenshot](./src/assets/Screenshot%202025-10-05%20133748.png)
 
+## 📁 Folder Structure
+
+```text
+
+uzence-assignment/
+├── .storybook/              # Storybook config (preview, main, etc.)
+├── src/
+│   ├── components/          # All reusable components
+│   │   ├── InputField/      # Input component (with stories & tests)
+│   │   └── DataTable/       # Table component (with stories & tests)
+│   ├── utils/               # Helper functions (sorting)
+│   ├── main.tsx             # React entry point
+│   └── index.css            # Tailwind base styles
+├── package.json             # Dependencies & scripts
+├── tsconfig.json            # TypeScript config
+├── vite.config.ts           # TypeScript config
+├── index.html               # HTML File
+└── README.md                # Documentation
+
+```
+
 ## Run locally
 
 1. `npm install`
@@ -37,3 +58,5 @@ React + TypeScript + Tailwind CSS + Storybook
 
 - No external component libraries used. All UI coded from scratch with Tailwind classes.
 - Accessibility: `aria-invalid`, `aria-describedby`, `aria-sort` and labels included for basic a11y.
+
+Perfect question — and it’s the kind of **small detail** that makes your assignment README look *professional and organized*.
